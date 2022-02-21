@@ -1,0 +1,119 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <algorithm> // Библиотека, содержащая функцию sort()
+using namespace std;
+
+inline float MeanValue(float a, float b);
+
+int Max(int a, int b, int c);
+float Max(float a, float b, float c);
+double Max(double a, double b, double c);
+
+template <typename T>
+T max_element(T* arr, size_t size)
+{
+	//if (size == 0) throw length_error("bad size");
+	T* res = &arr[0];
+
+	cout << "\tИзначальный массив: \n\t";
+	cout << arr[0] << " ";
+	for (int i = 1; i < size; ++i)
+	{
+		cout << arr[i] << " ";
+		if (arr[i] > *res)
+			res = &arr[i];
+	}
+	cout << "\n\tМаксимальное значение: ";
+	return *res;
+}
+
+
+
+
+int main(){
+
+
+	setlocale(LC_ALL, "Russian");
+	srand(time(NULL));
+	
+	cout << "\n\tЗадача 1.Создайте встраиваемую функцию, которая принимает ";
+	cout << "\n\tдва числа и возвращает их среднее арифметическое.\n\t";
+	
+	MeanValue(5, 6);
+
+	cout << "\n\tЗадача 2 Реализуйте перегруженную функцию для нахождения\n";
+	cout << "\tмаксимального из трёх элементов.Функция должна\n";
+	cout << "\tподдерживать типы int, float и double.\n";
+
+	cout << "\n\t Максимальное число: " << Max(7, 8, 9);
+	cout << "\n\t Максимальное число: " << Max(8.1, 9.1, 10.1);
+	cout << "\n\t Максимальное число: " << Max(9.87654e+37, 8.87654e+36, 7.87654e+36);
+	cout << "\n\n";
+
+	cout << "\tЗадача 3 Напишите шаблонную функцию для нахождения\n";
+	cout << "\tмаксимального элемента массива.Функция должна\n";
+	cout << "\tработать с любым типом данных.\n\n"; 
+
+	int ia[5] = { 21, 5, -5, 10, 15 };
+	float fa[4] = { 2.2, 3.3, 4.4, 5.5 };
+	double da[3] = { 12.3e25, 2.1e26, 4.8e27 };
+	cout << max_element(ia, 5) << endl;
+	cout << max_element(fa, 4) << endl;
+	cout << max_element(da, 3) << endl;
+	
+	return 0;
+}
+
+inline float MeanValue(float a, float b) {
+	float c;
+	c = (a + b) / 2;
+	cout << "\n\ta = " << a;
+	cout << "   b = " << b;
+	cout << "\n\tСреднее арифметическое двух чисел: ";
+	cout << c << "\n";
+	return c;
+}
+
+int Max(int a, int b, int c) {
+	cout << "\n\ta = " << a;
+	cout << "  b = " << b;
+	cout << "  c = " << c;
+	int d;
+	if (a > b && b > c)
+		d = a;
+	else if (b > a && a > c)
+		d = b;
+	else
+		d = c;
+	return d;
+}
+
+float Max(float a, float b, float c) {
+		float d;
+		cout << "\n\ta = " << a;
+		cout << "  b = " << b;
+		cout << "  c = " << c;
+
+		if (a > b && b > c)
+			d = a;
+		else if (b > a && a > c)
+			d = b;
+		else
+			d = c;
+		return d;
+}
+
+double Max(double a, double b, double c){
+	double d;
+	cout << "\n\ta = " << a;
+	cout << "  b = " << b;
+	cout << "  c = " << c;
+	if (a > b && b > c)
+		d = a;
+	else if (b > a && a > c)
+		d = b;
+	else
+		d = c;
+	return d;
+}
