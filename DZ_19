@@ -1,0 +1,143 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <algorithm> // Библиотека, содержащая функцию sort()
+
+using namespace std;
+
+int gl = -1, c = 0;
+int NOD(int first, int second);
+void resurveNumber(int a);
+
+template <typename T> int searchIndex(T array[], int length, T key, int begin = 0) {
+	
+	for (int i = 0; i < length; i++) {
+		if (array[i] == key) {
+			cout << "\tИндекс числа: " << i;
+			c = i;
+			gl++;
+			break;	
+		} 
+	}if (gl == -1) cout << " \n\tНет такого числа!\n";
+	if (gl == -1) return 0;
+	cout << "\n\tЧисла справа: \n\t";
+	
+	for (int i = c + 1; i < length; i++) 
+		{	
+			cout << array[i] << " ";
+		}
+	for (int i = c+1; i < length; i++)
+		for (int j = i + 1; j < length; j++)
+			if (array[i] > array[j])
+			{
+				int buf = array[i];
+				array[i] = array[j];
+				array[j] = buf;
+			}
+
+	cout << "\n\tОтсортированая часть : \n\t";
+	
+	for (int i = c+1; i < length; i++)
+		cout << array[i] << " ";
+	return -1;
+}  
+	
+void Completion(int array1[], int length1, int c, int d) {
+	int temp;
+	if (c > d)
+		swap(c, d);
+	cout << "\n\t";
+	//cout << "\n\tc = " << c << ", d = " << d << "\n";
+	for (int i = 0; i < length1; i++) {
+		array1[i] = rand() % (d -c + 1) + c;
+		cout << array1[i] << " ";
+	}cout << "\n\n";
+}  
+
+void main()
+{
+	setlocale(LC_ALL, "Rus");
+
+	cout << "\n\tЗадача 1. Создайте функцию, которая принимает два числа и";
+	cout << "\n\tвозвращает их наибольший общий делитель.\n";
+	int first, second;
+	cout << "\n\tВведите первое значение: ";
+	cin >> first;
+	cout << "\tВведите второе значение: ";
+	cin >> second;
+	if (first <= 0 || second <= 0)
+		cout << "\tERROR";
+	else
+		cout << "\tНОД (" << first << ", " << second << ") = " << NOD(first, second) << endl;
+
+	cout << "\n\tЗадача 2. Напишите функцию resurveNumber(), которая";
+	cout << "\n\tпринимает число и возвращает его в отражённом виде.";
+	int a;
+	cout << "\n\tВведите a (до 10 знаков): ";
+	cin >> a;
+	cout << "\tРазвёрнутое число: \n\t";
+	resurveNumber(a);
+	cout << "\n";
+
+	cout << "\n\tЗадача 3. Создайте функцию, которая принимает массив, его\n";
+	cout << "\tдлину и число N.Функция возвращает первую позицию\n";
+	cout << "\tчисла N в массиве, а также сортирует все элементы,\n";
+	cout << "\tкоторые находятся справа от N.\n\n";
+	cout << "\tИзначальный массив: ";
+	srand(time(NULL));
+	int n;
+	int arr[10];
+	cout << "\n\t";
+	for (int i = 0; i < 10; i++) {
+		arr[i] = rand() % 11;
+		cout << arr[i] << " ";
+	}
+	cout << "\n\tВведите число: ";
+	cin >> n;
+	searchIndex(arr, 10, n);
+	cout << "\n";
+
+	cout << "\n\tЗадача 4. Создайте функцию, которая принимает пустой";
+	cout << "\n\tмассив, его длину и два числа A и B, которые являются";
+	cout << "\n\tначалом и концом диапазона.Функция должна заполнять";
+	cout << "\n\tмассив случайными числами из указанного диапазона.\n";
+
+	int c, d;
+	int array1[25];
+	cout << "\n\tВведите начало диапазона: ";
+	cin >> c;
+	cout << "\tВведите конец диапазона: ";
+	cin >> d;
+	cout << "\tМассив: ";
+	Completion(array1, 25, c, d);
+	cout << "\n\n";
+}
+
+int NOD(int first, int second)
+{
+	for (int i = first; i > 0; i--) {
+		if (first % i == 0 && second % i == 0) {
+			return i;
+		}
+	}
+}
+
+void resurveNumber(int a)
+{
+	const int size = 20;
+	int arr[size];
+	for (int i = 0; i < size; i++) {
+		arr[i] = a % 10;
+		if (arr[i] == 0) {
+			a = a / 10;
+		}
+	}
+
+	for (int i = 0; a > 0; i++) {
+		arr[i] = a % 10;
+		cout << arr[i];
+		a = a / 10;
+	}
+}
+
+
