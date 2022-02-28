@@ -1,0 +1,135 @@
+#include <iostream>
+#include <string>
+#include <time.h>
+using namespace std;
+
+void ShowArray(int arr[], int size) {
+	for (int i = 0; i < size; i++) {
+		cout << arr[i] << "	";
+		if ((i+1) % 10 == 0)
+			cout << "\n";
+	}
+	cout << endl;
+}
+/* инициализируем массив внутри функции случайными числами. В отличии от обычных переменных изменения
+ элементов массива, происходящие внутри функции при выходе из функции сохраняются*/
+void InitArray(int arr[], int size) {
+	for (int i = 0; i < size; i++) {
+		arr[i] = rand() % 201 - 100;
+	}
+	cout << endl;
+}
+
+template <typename T> int searchIndex(T iArray[], int aSize, T key, int begin = 0) {
+	for (int i = begin; i < aSize; i++) {
+		if (iArray[i] == key)
+			return i;
+	}
+	return -1;
+}
+
+template <typename T> int searchLastIndex(T iArray[], int aSize, T key, int begin = 0)
+{
+	for (int i = aSize -1 ; i >= 0; i--) {
+		if (iArray[i] == key)
+			return i;
+	}
+	return -1;
+}
+
+int maxElement(int arr[], int aSize);
+int minElement(int arr[], int aSize);
+int meanValue(int arr[], int aSize);
+void Range(int arr[], int aSize, int a, int b);
+int Count(int arr[], int aSize, int r);
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand(time(NULL));
+	const int aSize = 100;
+	int iArr[aSize];
+	InitArray(iArr, aSize);
+	cout << "\tИзначальный массив: \n";
+	ShowArray(iArr, aSize);
+	int n, m, a, b, counter, r;
+	cout << "\tВведите число (первый вход): ";
+	cin >> n;
+	cout << "\tПервый индекс числа в массиве: ";
+	cout << searchIndex(iArr, 100, n);
+	cout << "\n\tВведите число (последний вход): ";
+	cin >> m;
+	cout << "\tПоследний индекс этого числа в массиве: ";
+	cout << searchLastIndex(iArr, 100, m);
+	cout << endl;
+
+	cout << "\n\tМаксимальный элемент: ";
+	cout << maxElement(iArr, 100);
+	cout << "\n\tМинимальный элемент: ";
+	cout << minElement(iArr, 100);
+	cout << "\n\n\tСреднее арифметическое элементов массива: ";
+	cout << meanValue(iArr, 100) / 100000;
+
+	cout << "\n\n\tДиапазон.";
+	cout << "\n\tВведите начало диапазона (от): ";
+	cin >> a;
+	cout << "\tВведите конец диапазона (до): ";
+	cin >> b;
+	cout << "\n\tЭлементы, входящие в диапазон: \n\t";
+	Range(iArr, 100, a, b);
+	cout << "\n";
+
+	cout << "\n\tВведите значение элемента: ";
+	cin >> r;
+	cout << "\n\tКоличество элементов в массиве: ";
+	cout << Count(iArr, 100, r);
+	cout << "\n\n";
+
+	return 0;
+}
+
+int maxElement(int arr[], int aSize) {
+	int temp = -1;
+	for (int i = 0; i < aSize; i++) {
+		if (arr[i] > temp)
+			temp = arr[i];
+	}
+	return temp;
+}
+int minElement(int arr[], int aSize) {
+	int temp = 10000000;
+	for (int i = 0; i < aSize; i++) {
+		if (arr[i] < temp)
+			temp = arr[i];
+	}
+	return temp;
+}
+int meanValue(int arr[], int aSize) {
+	int temp = 0;
+	for (int i = 0; i < aSize; i++) {
+		 temp = temp + arr[i];
+	}
+	return (temp / aSize-1) * 100000;
+}												
+
+void Range(int arr[], int aSize, int a, int b) {
+	cout << "\n";
+	int count = 0;
+	for (int i = 0; i < aSize; i++) {
+		
+		if (arr[i] >= a && arr[i] <= b) {
+			cout << arr[i] << " place: " << i << "	";
+			count++;
+			if (count % 10 == 0)
+				cout << "\n";
+		}
+	}
+	}
+int Count(int arr[], int aSize, int r) {
+	int temp = 0;
+	for (int i = 0; i < aSize; i++) {
+		if (arr[i] == r)
+			temp++;
+	}
+	return temp;
+}
