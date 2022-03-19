@@ -1,0 +1,95 @@
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+void threeMax(int&, int&, int&);
+int& rmin(int n, int d[]);
+int& Reset(int n, int d[], int m, int e[]);
+
+
+
+int main()
+{
+    setlocale(LC_ALL, "Rus");
+    cout << "\n\tЗадача 1. Создайте функцию, которая принимает 3 переменные.\n";
+    cout <<  "\tОна находит среди них максимальную, после чего меняет\n";
+    cout << "\tзначение двух оставшихся переменных на такое же\n";
+    cout << "\tзначение, как и у максимальной.\n";
+
+    int a = 5, b = 3, c = 4;
+    cout << "\n\tBefore threeMax: a = " << a << ",\tb = " << b << ",\tc = " << c << endl;
+    threeMax(a, b, c);
+    cout << "\tAfter threeMax: a = " << a << ",\tb = " << b << ",\tc = " << c << endl;
+    cout << "\n\tOr so: " << a << " " << b << " " << c << endl;
+
+    cout << "\n\tЗадача 2. Создайте функцию, которая принимает массив и его\n";
+    cout << "\tдлину.Функция возвращает ссылку на первый отрицательный элемент массива.\n";
+    cout << "\tЕсли отрицательного элемента нет, то функция возвращает ссылку на первый элемент.\n";
+
+    int x[] = { 10, -20, 30, 14 };
+    int n = 4;
+   
+    cout << "\n\tМассив: \n\t[";
+    for (int i = 0; i < n; i++)
+        cout << x[i] << "  ";
+    cout << "\b\b]\n";
+    cout << "\n\trmin(n,x) = " << rmin(n, x) << endl;
+
+    cout << "\n\tЗадача 3. Напишите функцию, которая принимает два массива\n";
+    cout << "\tи их длины.Функция должна обнулить все элементы второго массива,\n";
+    cout << "\tкоторые встречаются в первом.Для  решения данной задачи исполь-\n";
+    cout << "\tзуйте синтаксис указателей.\n\n";
+
+    int arr1[] = { 3, 6, 4, 1, 4, 8, 2 };
+    int a1 = 7;
+    cout << "\tМассив 1: \n\t[";
+    for (int i = 0; i < a1; i++)
+        cout << arr1[i] << "  ";
+    cout << "\b\b]\n";
+
+    cout << "\n\tМассив 2: \n\t[";
+    int arr2[] = { 5, 3, 1, 5, 10, 8 };
+    int b1 = 6;
+    for (int j = 0; j < b1; j++)
+        cout << arr2[j] << "  ";
+    cout << "\b\b]\n\n";
+
+    Reset(a1, arr1, b1, arr2);
+
+    cout << "\tМассив 2 после Reset: \n\t[";
+    for (int j = 0; j < b; j++)
+        cout << arr2[j] << "  ";
+    cout << "\b\b]\n\n";
+
+    return 0;
+}
+void threeMax(int& a1, int& b1, int& c1)
+{
+    int max = a1;
+    if (b1 > max)
+        max = b1;
+    if (c1 > max)
+        max = c1;
+    a1 = b1 = c1 = max;
+   
+    cout << "\tIn threeMax: a1 = " << a1 << "  b1 = " << b1 << ", c1 = " << c1 <<endl;
+}
+
+int& rmin(int n, int d[])   // Функция определяет ссылку на элемент
+{                           // массива с отрицательным значением.
+    //int im = 0;
+    for (int i = 0; i < n; i++) {
+        if (d[i] < 0)
+            return d[i];
+    }return d[0];
+}
+
+int& Reset(int n, int a1[], int m, int a2[])
+{
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            if (a2[j] == a1[i])
+                a2[j] = 0;
+    return a1[0];
+}
