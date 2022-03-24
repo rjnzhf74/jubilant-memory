@@ -1,0 +1,91 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+
+  // Исправлена задача 2 (палиндром)
+
+using namespace std;
+
+bool palindrom(string str3, int len3);
+int sign_search(string str3);
+
+int main() {
+
+    setlocale(LC_ALL, "Rus");
+    cout << "\n\n\tЗадача 1 Дана строка str. Пользователь вводит символ";
+    cout << "\n\tsym. Программа создаёт новую строку, которая состоит из";
+    cout << "\n\tсимвола sym. Длина новой строки равна количеству";
+    cout << "\n\tсовпадений введённого символа в изначальной строке str.\n\n";
+
+    //string str1;
+   // cout << "\n\tВведите строку: ";
+   // getline(cin, str1);
+
+    string str1 = "Hello world!";
+    cout << "\tДана строка: " << str1 << "\n";
+    char sym1 = 'l';
+   // cout << "\n\tВведите символ: ";
+   // cin >> sym1;
+    cout << "\tСимвол: "<< sym1<< "\n";
+  
+    int count = 0;
+    string res;
+    for (int i = 0; i < str1.length(); i++)
+        if (str1[i] == sym1) {
+            res += sym1;
+           count++;
+        }
+    cout << "\tСимволы: " << res << "   Счётчик символов: " << count << endl;
+
+    cout << "\n\tЗадача 2. Создайте функцию, которая принимает слово и";
+    cout << "\n\tвозвращает true, если оно является палиндромом. В";
+    cout << "\n\tпротивном случае возвращается false.Функция должна";
+    cout << "\n\tбыть нерегистрозависимой.\n\t(Работает только на латинской раскладке.)\n";
+
+    string str3;
+    cout << "\n\tВведите слово: ";
+    getline(cin, str3);
+    int len3 = str3.size();
+
+    cout << "\tРеверс слова:  ";
+    for (int i = len3; i > -1; i--)
+        cout << str3[i];
+
+    if (palindrom(str3, len3) == 1)
+        cout << "\n\n\tСлово палиндром.\n\n";
+    else cout << "\n\n\tСлово не палиндром.\n\n";
+
+
+    cout << "\n\tЗадача 3. Создайте функцию, которая принимает строку.";
+    cout << "\n\tФункция считает все пробелы, точки, запятые, восклицательные и";
+    cout << "\n\tвопросительные знаки, которые есть в переданной строке и";
+    cout << "\n\tвозвращает их общее количество.\n";
+
+    string str;
+    cout << "\n\tВведите строку: ";
+    getline(cin, str);
+
+    cout << "\n\tКоличество знаков в строке: " << sign_search(str) << "\n\n";
+
+    return 0;
+}
+
+bool palindrom(string str3, int len3) {
+    for (int i = 0; i < len3; i++)
+        str3[i] = tolower(str3[i]);
+    for (int i = 0, j = len3 - 1; i < j; i++, j--) {
+        if (str3[i] != str3[j])
+            return 0;
+    } return 1;
+}
+
+int sign_search(string str3) {
+    int sum = 0;
+    for (int i = 0; i < str3.size(); i++)
+        if (str3[i] == ' ' || str3[i] == '.' || str3[i] == ',' || str3[i] == '!' || str3[i] == '?')
+            sum += 1;
+    return sum;
+}
+
+
+
