@@ -1,0 +1,121 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+
+using namespace std;
+
+struct film {		//	Структура (объявляем)
+	string title;	//  Название фильма
+	int year;		//  Год выхода
+	string genre;   //  Жанр фильма
+	int duration;   //  Продолжительность 
+	int price;		//  Цена за диск
+};
+
+void  showMovie(film F) {
+	cout << "\n\tНазвание фильма: " << F.title << "\n";
+	cout << "\tГод выхода: " << F.year << "\n";
+	cout << "\tЖанр: " << F.genre << "\n";
+	cout << "\tПродолжительность: " << F.duration << "\n";
+	cout << "\tСтоимость: " << F.price << "\n";
+}
+
+int expensive(film &L, film &S, film &P) {
+	
+	cout << "\n\tЦена диска 1: " << L.price;
+	cout << "\n\tЦена диска 2: " << S.price;
+	cout << "\n\tЦена диска 3: " << P.price;
+	int maxPrice = L.price;
+		if (maxPrice < S.price)
+			maxPrice = S.price;
+	if (maxPrice < P.price)
+		maxPrice = P.price;
+
+	return maxPrice;
+}
+
+int updateInfo(film&F) {
+	int input;
+
+	cout << "\tВыберите, какую информацию о\n";
+	cout << "\tфильме хотите обновить :\n";
+	cout << "\t1- Название.\n";
+	cout << "\t2- Год выхода.\n";
+	cout << "\t3- Жанр\n";
+	cout << "\t4. Продолжительность\n";
+	cout << "\t5. Цена за диск.\n";
+		cout << "\tВвод -> ";
+	cin >> input;
+	switch (input) {
+	case 1:
+		cout << "\tВведите новое название: ";
+		cin >> F.title;
+		break;
+	case 2:
+		cout << "\tВведите другой год выхода: ";
+		cin >> F.year;
+		break;
+	case 3:
+		cout << "\tВведите жанр: ";
+		cin >> F.genre;
+		break;
+	case 4:
+		cout << "\tДругая продолжительность: ";
+		cin >> F.duration;
+		break;
+	case 5:
+		cout << "\tНовая стоимость: ";
+		cin >> F.price;
+		break;
+	default:
+		cout << "\n\tОшибка ввода!!!\n";
+		break;
+	}return 0;
+}
+
+int main(){
+
+	setlocale(LC_ALL, "Russian");
+
+	film L = { "'Lenin in October.'", 1937, "Comedy", 105, 5000 };
+	film S = { "'A dog's heart.'", 1988, "Science fiction", 130, 10000 };
+	film P = { "'Crime and punishment'.", 1969, "Drama", 209, 15000 };
+
+	showMovie(L);
+	showMovie(S);
+	showMovie(P);
+	
+	cout << "\n\tМаксимальная цена диска: "<< expensive(L, S, P) << "\n";
+
+	int a, b;
+	cout << "\n\tТребуется корректировка? 0 - нет, 1 - да  ";
+	cin >> a;
+	if (a == 0)
+		return 0;
+	cout << "\tКакой диск? 1 - первый, 2 - второй, 3 - третий  ";
+	cin >> b;
+	if (b < 1 || b>3) {
+		cout << "\tОшибка ввода!!!\n";
+		return 0;
+	}
+	if (b == 1) {
+		updateInfo(L);
+		cout << "\n\tСведения о фильме после корректировки: ";
+		showMovie(L);
+	}
+
+	if (b == 2) {
+		updateInfo(S);
+		cout << "\n\tСведения о фильме после корректировки: ";
+		showMovie(S);
+	}
+
+	if (b == 3) {
+		updateInfo(P);
+		cout << "\n\tСведения о фильме после корректировки: ";
+		showMovie(P);
+	}
+
+	return 0;
+}
+
